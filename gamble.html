@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamble</title>
+    <link rel="stylesheet" href="gamble.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <header>
+            <span class="history-text">HISTORY:</span>
+            <canvas class="history-canvas"></canvas>
+        </header>
+        <main class="game">
+            <canvas class="main-canvas"></canvas>
+            <div class="buttons">
+                <button class="btn red">RED</button>
+                <button class="btn blue">BLUE</button>
+                <div class="display">
+                    <span class="display-text"></span>
+                </div>
+            </div>
+        </main>
+        <section class="values">
+            <div class="values-container">
+                ATTEMPTS
+                <span class="attempts-value"></span>
+            </div>
+            <div class="values-container">
+                GAMBLE TO WIN
+                <span class="gamble-win-value"></span>
+            </div>
+            <div class="values-container">
+                GAMBLE AMOUNT
+                <span class="gamble-amount-value"></span>
+            </div>
+        </section>
+    </div>
+
+    <script src="gamble.js"></script>
+</body>
+
+</html>
