@@ -136,13 +136,27 @@ function disableSwitch(condition) {
   });
 }
 
+let containerHeight, containerWidth;
+
 function proportionalScale(isLandscape) {
+  containerHeight = parseInt(mainContainer.style.height.split("p")[0]);
+  containerWidth = parseInt(mainContainer.style.width.split("p")[0]);
   if (isLandscape) {
-    mainContainer.style.width = `${innerWidth}px`;
-    mainContainer.style.height = `${(parseFloat(innerWidth) * 9) / 16}px`;
+    if (containerHeight >= innerHeight && innerWidth >= containerWidth) {
+      mainContainer.style.height = `${innerHeight}px`;
+      mainContainer.style.width = `${(parseFloat(innerHeight) * 16) / 9}px`;
+    } else {
+      mainContainer.style.width = `${innerWidth}px`;
+      mainContainer.style.height = `${(parseFloat(innerWidth) * 9) / 16}px`;
+    }
   } else {
-    mainContainer.style.height = `${innerHeight}px`;
-    mainContainer.style.width = `${(parseFloat(innerHeight) * 9) / 16}px`;
+    if (containerWidth >= innerWidth && innerHeight >= containerHeight) {
+      mainContainer.style.width = `${innerWidth}px`;
+      mainContainer.style.height = `${(parseFloat(innerWidth) * 16) / 9}px`;
+    } else {
+      mainContainer.style.height = `${innerHeight}px`;
+      mainContainer.style.width = `${(parseFloat(innerHeight) * 9) / 16}px`;
+    }
   }
 }
 
