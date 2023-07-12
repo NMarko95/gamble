@@ -1,6 +1,4 @@
 const mainContainer = document.querySelector(".main-container");
-console.log(mainContainer.height);
-
 const mainCanvas = document.querySelector(".main-canvas");
 const historyCanvas = document.querySelector(".history-canvas");
 
@@ -138,6 +136,16 @@ function disableSwitch(condition) {
   });
 }
 
+function proportionalScale(isLandscape) {
+  if (isLandscape) {
+    mainContainer.style.width = `${innerWidth}px`;
+    mainContainer.style.height = `${(parseFloat(innerWidth) * 9) / 16}px`;
+  } else {
+    mainContainer.style.height = `${innerHeight}px`;
+    mainContainer.style.width = `${(parseFloat(innerHeight) * 9) / 16}px`;
+  }
+}
+
 const buttons = document.querySelectorAll(".btn");
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -148,3 +156,11 @@ buttons.forEach((button) => {
 drawCard(currentColor);
 
 animationId = requestAnimationFrame(starting);
+
+addEventListener("load", () => {
+  proportionalScale(innerWidth > innerHeight);
+});
+
+addEventListener("resize", () => {
+  proportionalScale(innerWidth > innerHeight);
+});
