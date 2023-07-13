@@ -21,7 +21,7 @@ body{
     flex-direction: column;
     justify-content: space-between;
     background-color: #0f650f;
-    font-size: 1em;
+    font-size: 1.1em;
     border: 5px solid #6f2a05;
 }
 
@@ -37,7 +37,6 @@ header{
 
 .history-text{
     padding: 0.5%;
-    font-size: 0.8em;
 }
 
 .history-canvas{
@@ -87,7 +86,6 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.75em;
 }
 
 .btn:hover{
@@ -111,7 +109,6 @@ header{
 
 .display-text{
     color: green;
-    letter-spacing: 2px;
 }
 
 .values{
@@ -128,16 +125,11 @@ header{
     align-items: center;
     justify-content: space-evenly;
     height: 100%;
-    font-size: 0.8em;
 }
 
 @media(orientation: portrait){
     header{
         padding: 0 5px;
-    }
-
-    .history-text{
-        font-size: 0.65em;
     }
 
     .game{
@@ -160,16 +152,11 @@ header{
     .btn{
         height: 50%;
         width: 25%;
-        font-size: 0.6em;
     }
 
     .display{
         height: 60%;
         width: 30%
-    }
-
-    .display-text{
-        font-size: 0.6em
     }
 
     .values{
@@ -183,7 +170,35 @@ header{
         flex-direction: row;
         justify-content: center;
         gap: 10%;
-        font-size: 0.7em;
+    }
+}
+
+@media(max-width: 650px) or (max-height: 550px){
+    .main-container, .btn{
+        font-size: 0.75em;
+    }
+}
+@media(max-width: 400px) or (max-height: 350px){
+    .main-container, .btn{
+        font-size: 0.65em;
+    }
+}
+
+@media(max-width: 300px) or (max-height: 200px){
+    .main-container, .btn{
+        font-size: 0.5em;
+    }
+}
+
+@media(max-width: 300px) or (max-height: 250px){
+    .main-container, .btn{
+        font-size: 0.45em;
+    }
+}
+
+@media(max-width: 150px) or (max-height: 150px){
+    .main-container, .btn{
+        font-size: 0.4em;
     }
 }
 

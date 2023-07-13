@@ -142,7 +142,7 @@ function proportionalScale(isLandscape) {
   containerHeight = parseInt(mainContainer.style.height.split("p")[0]);
   containerWidth = parseInt(mainContainer.style.width.split("p")[0]);
   if (isLandscape) {
-    if (containerHeight >= innerHeight && innerWidth >= containerWidth) {
+    if (containerHeight + 5 >= innerHeight && innerWidth >= containerWidth) {
       mainContainer.style.height = `${innerHeight}px`;
       mainContainer.style.width = `${(parseFloat(innerHeight) * 16) / 9}px`;
     } else {
@@ -150,7 +150,7 @@ function proportionalScale(isLandscape) {
       mainContainer.style.height = `${(parseFloat(innerWidth) * 9) / 16}px`;
     }
   } else {
-    if (containerWidth >= innerWidth && innerHeight >= containerHeight) {
+    if (containerWidth + 5 >= innerWidth && innerHeight >= containerHeight) {
       mainContainer.style.width = `${innerWidth}px`;
       mainContainer.style.height = `${(parseFloat(innerWidth) * 16) / 9}px`;
     } else {
