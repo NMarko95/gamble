@@ -41,43 +41,54 @@ btn.style.backgroundColor = red;
 btn = document.querySelector(".btn.blue");
 btn.style.backgroundColor = blue;
 
+let img = new Image();
+img.src = "cards.jpg";
+
+let containerHeight, containerWidth, newContext;
+
+const aspectRatioScreen = {
+  widthScale: 16,
+  heightScale: 9,
+};
+
 function drawCard(isRed) {
-  const img = new Image();
-  img.onload = () => {
-    c.drawImage(
-      img,
-      isRed ? 26 : img.width / 2 + 5,
-      15,
-      img.width / 2 - 30,
-      img.height - 30,
-      0,
-      0,
-      mainCanvas.width,
-      mainCanvas.height
-    );
-  };
-  img.src = "cards.jpg";
+  c.drawImage(
+    img,
+    isRed ? 26 : img.width / 2 + 5,
+    15,
+    img.width / 2 - 30,
+    img.height - 30,
+    0,
+    0,
+    mainCanvas.width,
+    mainCanvas.height
+  );
+}
+
+function scaleImage(source, scaleFactor) {
+  let temp = document.createElement("canvas");
+  let ctx = temp.getContext("2d");
+  let w = source.height * scaleFactor;
+  temp.width = w;
+  ctx.drawImage(source, 0, 0, w, source.height);
+  return temp;
 }
 
 function drawHistoryCard() {
-  historyC.clearRect(0, 0, historyCanvas.widith, historyCanvas.height);
-  let img = new Image();
-  img.onload = () => {
-    history.forEach((card, i) => {
-      historyC.drawImage(
-        img,
-        card === red ? 25 : img.width / 2 + 5,
-        15,
-        img.width / 2 - 30,
-        img.height - 30,
-        ((history.length - 1 - i) * historyCanvas.width) / 4,
-        0,
-        historyCanvas.width / 5,
-        historyCanvas.height
-      );
-    });
-  };
-  img.src = "cards.jpg";
+  historyC.clearRect(0, 0, historyCanvas.width, historyCanvas.height);
+  history.forEach((card, i) => {
+    historyC.drawImage(
+      img,
+      card === red ? 25 : img.width / 2 + 5,
+      15,
+      img.width / 2 - 30,
+      img.height - 30,
+      ((history.length - 1 - i) * historyCanvas.width) / 4,
+      0,
+      historyCanvas.width / 4.5,
+      historyCanvas.height
+    );
+  });
 }
 
 function starting() {
@@ -136,26 +147,38 @@ function disableSwitch(condition) {
   });
 }
 
-let containerHeight, containerWidth;
-
 function proportionalScale(isLandscape) {
-  containerHeight = parseInt(mainContainer.style.height.split("p")[0]);
-  containerWidth = parseInt(mainContainer.style.width.split("p")[0]);
+  containerHeight =
+    parseInt(mainContainer.style.height.split("p")[0]) || innerHeight;
+  containerWidth =
+    parseInt(mainContainer.style.width.split("p")[0]) || innerWidth;
   if (isLandscape) {
-    if (containerHeight + 5 >= innerHeight && innerWidth >= containerWidth) {
+    if (containerHeight + 1 >= innerHeight && innerWidth >= containerWidth) {
       mainContainer.style.height = `${innerHeight}px`;
-      mainContainer.style.width = `${(parseFloat(innerHeight) * 16) / 9}px`;
+      mainContainer.style.width = `${
+        (parseFloat(innerHeight) * aspectRatioScreen.widthScale) /
+        aspectRatioScreen.heightScale
+      }px`;
     } else {
       mainContainer.style.width = `${innerWidth}px`;
-      mainContainer.style.height = `${(parseFloat(innerWidth) * 9) / 16}px`;
+      mainContainer.style.height = `${
+        (parseFloat(innerWidth) * aspectRatioScreen.heightScale) /
+        aspectRatioScreen.widthScale
+      }px`;
     }
   } else {
-    if (containerWidth + 5 >= innerWidth && innerHeight >= containerHeight) {
+    if (containerWidth + 1 >= innerWidth && innerHeight >= containerHeight) {
       mainContainer.style.width = `${innerWidth}px`;
-      mainContainer.style.height = `${(parseFloat(innerWidth) * 16) / 9}px`;
+      mainContainer.style.height = `${
+        (parseFloat(innerWidth) * aspectRatioScreen.widthScale) /
+        aspectRatioScreen.heightScale
+      }px`;
     } else {
       mainContainer.style.height = `${innerHeight}px`;
-      mainContainer.style.width = `${(parseFloat(innerHeight) * 9) / 16}px`;
+      mainContainer.style.width = `${
+        (parseFloat(innerHeight) * aspectRatioScreen.heightScale) /
+        aspectRatioScreen.widthScale
+      }px`;
     }
   }
 }
@@ -167,14 +190,16 @@ buttons.forEach((button) => {
   });
 });
 
-drawCard(currentColor);
-
 animationId = requestAnimationFrame(starting);
 
 addEventListener("load", () => {
+  drawCard(currentColor);
   proportionalScale(innerWidth > innerHeight);
 });
 
-addEventListener("resize", () => {
-  proportionalScale(innerWidth > innerHeight);
-});
+let scaling;
+
+window.onresize = function () {
+  clearTimeout(proportionalScale(innerWidth > innerHeight));
+  scaling = setTimeout(proportionalScale(innerWidth > innerHeight), 100);
+};

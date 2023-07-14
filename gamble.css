@@ -27,7 +27,7 @@ body{
 
 header{
     width: 100%;
-    height: 15%;
+    height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,13 +41,12 @@ header{
 
 .history-canvas{
     height: 90%;
+    width: 40%;
     padding: 0.5%;
-    aspect-ratio: 4 / 1;
     overflow-x: auto;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
 }
 
 .game{
@@ -129,7 +128,12 @@ header{
 
 @media(orientation: portrait){
     header{
-        padding: 0 5px;
+        padding: 0 2%;
+        height: 13%;
+    }
+
+    .history-canvas{
+        width: 90%;
     }
 
     .game{
@@ -199,6 +203,12 @@ header{
 @media(max-width: 150px) or (max-height: 150px){
     .main-container, .btn{
         font-size: 0.4em;
+    }
+}
+
+@media(max-width: 100px) or (max-height: 100px){
+    .main-container{
+        font-size: 0.3em;
     }
 }
 
